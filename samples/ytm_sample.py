@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+
 def setup(authenticate=False):
     if authenticate:
         ytmusic = YTMusic('browser.json')

@@ -1,3 +1,5 @@
 .env*
 *.json
 env/
+creds/
+**/__pycache__/

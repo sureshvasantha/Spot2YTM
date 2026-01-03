@@ -13,6 +13,10 @@ class Spotify:
             
 
     def get_profile(self):
+        response = requests.get(url='https://api.spotify.com/v1/me', headers=self._headers()).json()
+        return response
+    
+    def get_my_playlists(self):
         response = requests.get(url='https://api.spotify.com/v1/me/playlists', headers=self._headers()).json()
         return response
 

@@ -1,14 +1,15 @@
 from ytmusicapi import YTMusic, OAuthCredentials
 from dotenv import load_dotenv
 import os
+from spot2ytm.config.settings import settings
+from spot2ytm.config.logging_config import LoggingConfigurator
+
 
 load_dotenv()
 
-client_id = os.environ['YT_CLIENT_ID'] 
-client_secret = os.environ['YT_CLIENT_SECRET'] 
+def main():
+    LoggingConfigurator(settings.DEBUG).configure()
 
-# ytmusic = YTMusic('oauth.json', oauth_credentials=OAuthCredentials(client_id=client_id, client_secret=client_secret))
-ytmusic = YTMusic('browser.json')
 
-results = ytmusic.search("Stole My Heart")
-print(results)
+if __name__ == '__main__':
+    main()

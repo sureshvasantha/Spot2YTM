@@ -15,7 +15,7 @@ MY_PL_ID = "29dpWoYLHwYyCQba9G1gTH"
 MASS_BGM_PL_ID = "5B8YspLAD1fxY5SAwwLy3X" 
 
 def get_profile():
-    response = requests.get(url='https://api.spotify.com/v1/me/playlists', headers=header).json()
+    response = requests.get(url='https://api.spotify.com/v1/me', headers=header).json()
     print(response)
     return response
 

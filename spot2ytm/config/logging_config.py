@@ -1,4 +1,5 @@
 import logging
+from config.settings import settings
 
 
 class LoggingConfigurator:
@@ -9,6 +10,8 @@ class LoggingConfigurator:
         level = logging.DEBUG if self.debug else logging.INFO
 
         logging.basicConfig(
+            filename=settings.BASE_DIR / "logs/spot2ytm.log",
+            filemode='w',
             level=level,
-            format="%(asctime)s | %(levelname)s | %(name)s | %(message)s"
+            format="%(asctime)s : %(levelname)s : %(name)s : %(message)s"
         )

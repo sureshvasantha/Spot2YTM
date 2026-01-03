@@ -1,11 +1,12 @@
-from auth.spotify_auth import request_access_token
+from spot2ytm.auth.spotify_authentication_manager import SpotifyAuthenticationManager
 import requests
 import json
 
-SPOTIFY_ACCESS_TOKEN = request_access_token()[0]
+spotify_auth = SpotifyAuthenticationManager()
+SPOTIFY_ACCESS_TOKEN = spotify_auth.get_token()
 
 header = {
-    'Authorization': 'Bearer ' + SPOTIFY_ACCESS_TOKEN
+    'Authorization': 'Bearer ' + SPOTIFY_ACCESS_TOKEN # pyright: ignore[reportOperatorIssue]
 }
 
 GYM_PL_ID = "1R7k82T5vm2pOBcmVPVVbT"

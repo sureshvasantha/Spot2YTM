@@ -1,6 +1,6 @@
 from ytmusicapi import YTMusic
 import json
-from ytmusicapi import YTMusic, OAuthCredentials
+from ytmusicapi import YTMusic
 from dotenv import load_dotenv
 
 load_dotenv()

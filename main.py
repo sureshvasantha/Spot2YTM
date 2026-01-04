@@ -1,15 +1,17 @@
-from ytmusicapi import YTMusic, OAuthCredentials
 from dotenv import load_dotenv
-import os
 from spot2ytm.config.settings import settings
 from spot2ytm.config.logging_config import LoggingConfigurator
+from spot2ytm.app import create_app
 
-
-load_dotenv()
 
 def main():
     LoggingConfigurator(settings.DEBUG).configure()
+    migrator = create_app()
+
+    migrator.migrate(
+        spotify_playlist_id=settings.MASS_BGM_PL_ID
+    )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

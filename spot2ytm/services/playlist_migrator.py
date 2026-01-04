@@ -9,9 +9,9 @@ logger = logging.getLogger(__name__)
 
 class PlaylistMigrator:
 
-    def __init__(self, fetcher: PlaylistFetcher, matcher: TrackMatcher, ytmusic: YTMusicClient, spotify: SpotifyClient) -> None:
-        self.spotify_client = spotify
-        self.ytmusic_client = ytmusic
+    def __init__(self, fetcher: PlaylistFetcher, matcher: TrackMatcher, ytmusic_client: YTMusicClient, spotify_client: SpotifyClient) -> None:
+        self.spotify_client = spotify_client
+        self.ytmusic_client = ytmusic_client
         self.fetcher = fetcher
         self.matcher = matcher
     

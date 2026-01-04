@@ -39,6 +39,13 @@ def get_playlist_songs_count(playlist_id):
     print(response)
     return response    
 
+def get_playlist_name_desc(playlist_id):
+        params = {
+            'fields': 'name,description'
+        }
+        response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}', headers=header, params=params).json()
+        print(__name__, response)
+        return response['name'], response['description']
 
 def get_playlist_songs(playlist_id: str) -> List[Track]:
         params = {
@@ -59,4 +66,5 @@ def get_playlist_songs(playlist_id: str) -> List[Track]:
 
 if __name__ == '__main__':
     get_playlist_songs_count(MY_PL_ID)
-    get_playlist_songs(MY_PL_ID)
+    # get_playlist_songs(MY_PL_ID)
+    get_playlist_name_desc(MY_PL_ID)

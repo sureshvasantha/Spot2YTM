@@ -2,7 +2,7 @@ import requests
 import os
 import json
 import time
-from config.settings import settings
+from spot2ytm.config.settings import settings
 import logging
 
 logger = logging.getLogger(__name__)

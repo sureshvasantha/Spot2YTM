@@ -14,9 +14,9 @@ class Settings:
         # Project paths
         self.BASE_DIR = Path(__file__).resolve().parents[2]
         
-        self.DATA_DIR = self.BASE_DIR / "spot2ytm/data"
+        self.DATA_DIR = self.BASE_DIR / "spot2ytm" / "data"
 
-        self.CREDS_DIR = self.BASE_DIR / "spot2ytm/creds"
+        self.CREDS_DIR = self.BASE_DIR / "spot2ytm" / "creds"
 
         # Spotify
         self.SPOTIFY_CLIENT_ID = self._get_env("SPOTIFY_CLIENT_ID")
@@ -36,6 +36,9 @@ class Settings:
 
         # App behavior
         self.DEBUG = self._get_bool("DEBUG", default=False)
+
+        self.DEFAULT_ENCODING = "utf-8"
+
 
     # ---------- internal helpers ----------
 

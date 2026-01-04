@@ -1,6 +1,9 @@
+from typing import List
 from spot2ytm.auth.spotify_authentication_manager import SpotifyAuthenticationManager
 import requests
 import json
+from spot2ytm.domain.track import Track
+from spot2ytm.config.settings import settings
 
 spotify_auth = SpotifyAuthenticationManager()
 SPOTIFY_ACCESS_TOKEN = spotify_auth.get_token()
@@ -28,7 +31,7 @@ def get_playlist(playlist_id):
     print(response)
     return response
 
-def get_playlist_items_count(playlist_id):
+def get_playlist_songs_count(playlist_id):
     params = {
         'fields': 'total,limit'
     }
@@ -36,15 +39,24 @@ def get_playlist_items_count(playlist_id):
     print(response)
     return response    
 
-def get_playlist_items(playlist_id):
-    params = {
-        'fields': 'items(track(name,album(name)))',
-    }
-    response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks', headers=header, params=params).json()
-    print(len(response['items']))
-    print(response)
-    return response
+
+def get_playlist_songs(playlist_id: str) -> List[Track]:
+        params = {
+            'fields': 'next,previous,items(track(name,album(name)))',
+        }
+        url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
+        songs = []
+        while url:
+            response = requests.get(url=url, headers=header, params=params).json()
+            for item in response['items']:
+                songs.append(Track(title=item['track']['name'], album=item['track']['album']['name']))
+            url = response['next']
+
+        # with open(file=settings.DATA_DIR / "songs.txt", mode='w+', encoding=settings.DEFAULT_ENCODING) as fp:
+        #     for track in songs:
+        #         fp.write(f"{track.title} FROM {track.album}\n")
+        return songs
 
 if __name__ == '__main__':
-    get_playlist_items_count(GYM_PL_ID)
-    get_playlist_items(GYM_PL_ID)
+    get_playlist_songs_count(MY_PL_ID)
+    get_playlist_songs(MY_PL_ID)

@@ -11,7 +11,7 @@ class LoggingConfigurator:
 
         logging.basicConfig(
             filename=settings.BASE_DIR / "logs" / "spot2ytm.log",
-            filemode='w',
+            filemode='a',
             level=level,
             format="%(asctime)s : %(levelname)s : %(name)s : %(message)s"
         )

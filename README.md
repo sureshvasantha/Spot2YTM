@@ -1,5 +1,8 @@
 # Spot2YTM - Spotify Playlist To YT Music Playlist
 
+The main focus of this project is to automate playlist migration from end to end.
+None of the features should require more user efforts.
+
 Features:
 ---
 
@@ -11,6 +14,8 @@ Features:
 TODO:
 ---
 
+- [ ] Remove prints in `app.py` and log correctly. 
+- [ ] Make use of Redis or ACID DB to persist songs IDs to resume addition of songs regardless of app restarts.
 - [ ] Handle Rate limiting for searching in YTM.
 - [ ] Apply Search Result limit for searching in YTM.
 - [ ] Log extensively

@@ -1,5 +1,8 @@
+from typing import List
 import requests
 from spot2ytm.auth.spotify_authentication_manager import SpotifyAuthenticationManager
+from spot2ytm.config.settings import settings
+from spot2ytm.domain.track import Track
 
 
 class Spotify:
@@ -29,19 +32,23 @@ class Spotify:
         print(response)
         return response
 
-    def get_playlist_items_count(self, playlist_id):
+    def get_playlist_songs_count(self, playlist_id):
         params = {
             'fields': 'total,limit'
         }
         response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks', headers=self._headers(), params=params).json()
         print(response)
-        return response    
+        return response['total'], response['limit']    
 
-    def get_playlist_items(self, playlist_id):
+    def get_playlist_songs(self, playlist_id: str) -> List[Track]:
         params = {
-            'fields': 'items(track(name,album(name)))',
+            'fields': 'next,previous,items(track(name,album(name)))',
         }
-        response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks', headers=self._headers(), params=params).json()
-        print(len(response['items']))
-        print(response)
-        return response
+        url = f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks'
+        songs = []
+        while url:
+            response = requests.get(url=url, headers=self._headers(), params=params).json()
+            for item in response['items']:
+                songs.append(Track(title=item['track']['name'], album=item['track']['album']['name']))
+            url = response['next']
+        return songs

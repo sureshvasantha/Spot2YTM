@@ -1,7 +1,9 @@
+import logging
 from ytmusicapi import YTMusic
 from typing import List
 import json
 
+logger = logging.getLogger(__name__)
 
 class YTMusicClient:
     def __init__(self, ytmusic: YTMusic) -> None:
@@ -20,7 +22,12 @@ class YTMusicClient:
         return None
 
     def search_song(self, name: str, album: str, artist: str):
-        results = self.client.search(query=f"{name} from {album}", filter="songs")
+        if "from" in name.lower():
+            query = name  
+        else: 
+            query = f"{name} from {album}"
+
+        results = self.client.search(query=query, filter="songs")
         return results[0]['videoId']
 
     def create_playlist(self, name: str, description: str):
@@ -36,5 +43,5 @@ class YTMusicClient:
         if "succeed" in response['status'].lower(): # type: ignore
             return True
         else:
-            # TODO: log  response['status'] # type: ignore
+            logger.warning("Error response from YTMusic while adding song to playlist.\n %s",  response['status']) # type: ignore
             return False

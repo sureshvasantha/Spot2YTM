@@ -66,5 +66,7 @@ def get_playlist_songs(playlist_id: str) -> List[Track]:
 
 if __name__ == '__main__':
     get_playlist_songs_count(MY_PL_ID)
+    get_playlist_songs_count(GOVT_BUS_PL_ID)
     # get_playlist_songs(MY_PL_ID)
-    get_playlist_name_desc(MY_PL_ID)
+    # get_playlist_name_desc(MY_PL_ID)
+    get_playlist_songs_count(MASS_BGM_PL_ID)

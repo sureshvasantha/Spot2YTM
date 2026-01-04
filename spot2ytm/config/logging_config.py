@@ -1,5 +1,5 @@
 import logging
-from config.settings import settings
+from spot2ytm.config.settings import settings
 
 
 class LoggingConfigurator:

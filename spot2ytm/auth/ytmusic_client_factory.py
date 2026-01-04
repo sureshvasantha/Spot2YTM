@@ -1,5 +1,5 @@
 from ytmusicapi import YTMusic
-from config.settings import settings
+from spot2ytm.config.settings import settings
 
 class YtMusicAuthenticationManager:
     """

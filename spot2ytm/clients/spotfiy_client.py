@@ -27,7 +27,6 @@ class SpotifyClient:
             'fields': 'name,description'
         }
         response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}', headers=self._headers(), params=params).json()
-        print(__name__, response)
         return response['name'], response['description']
 
     def get_playlist(self, playlist_id):
@@ -35,7 +34,6 @@ class SpotifyClient:
             'fields': 'name,tracks(items(track(name,album(name))))'
         }
         response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}', headers=self._headers(), params=params).json()
-        print(response)
         return response
 
     def get_playlist_songs_count(self, playlist_id):
@@ -43,7 +41,6 @@ class SpotifyClient:
             'fields': 'total,limit'
         }
         response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}/tracks', headers=self._headers(), params=params).json()
-        print(response)
         return response['total'], response['limit']    
 
     def get_playlist_songs(self, playlist_id: str) -> List[Track]:

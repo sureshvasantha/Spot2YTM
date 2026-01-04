@@ -5,7 +5,7 @@ from spot2ytm.config.settings import settings
 from spot2ytm.domain.track import Track
 
 
-class Spotify:
+class SpotifyClient:
     def __init__(self, auth_manager: SpotifyAuthenticationManager):
         self.auth_manager = auth_manager
 
@@ -14,7 +14,6 @@ class Spotify:
             'Authorization': 'Bearer ' +  self.auth_manager.get_token()  # type: ignore
             }
             
-
     def get_profile(self):
         response = requests.get(url='https://api.spotify.com/v1/me', headers=self._headers()).json()
         return response
@@ -23,6 +22,13 @@ class Spotify:
         response = requests.get(url='https://api.spotify.com/v1/me/playlists', headers=self._headers()).json()
         return response
 
+    def get_playlist_name_desc(self, playlist_id):
+        params = {
+            'fields': 'name,description'
+        }
+        response = requests.get(url=f'https://api.spotify.com/v1/playlists/{playlist_id}', headers=self._headers(), params=params).json()
+        print(__name__, response)
+        return response['name'], response['description']
 
     def get_playlist(self, playlist_id):
         params = {

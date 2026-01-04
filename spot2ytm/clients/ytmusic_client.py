@@ -21,7 +21,7 @@ class YTMusicClient:
                 return playlist
         return None
 
-    def search_song(self, name: str, album: str, artist: str):
+    def search_song(self, name: str, album: str, artist: str = ""):
         if "from" in name.lower():
             query = name  
         else: 
@@ -30,13 +30,35 @@ class YTMusicClient:
         results = self.client.search(query=query, filter="songs")
         return results[0]['videoId']
 
-    def create_playlist(self, name: str, description: str):
+    def get_or_create_playlist(self, name: str, description: str, video_ids: List[str] = []) -> str:
+        """
+        Retrieves existing playlist by name or creates Playlist in YTMusic 
+        """
         playlist = self.get_playlist_by_name(name)
+
         if playlist:
-            response = playlist['playlistId']
-        else:
-            response = self.client.create_playlist(title=name, description=description)
-        return response
+            return playlist.get('playlistId', "")
+        
+        response = self.client.create_playlist(title=name, description=description, video_ids=video_ids)
+        
+        if isinstance(response, str):
+            return response
+
+        if isinstance(response, dict):
+            logger.error(
+                "YTMusic playlist creation failed. name=%s error=%s",
+                name,
+                response
+            )    
+            return ""
+        
+        # Defensive fallback
+        logger.error(
+            "Unexpected response type from YTMusic.create_playlist: %s (%r)",
+            type(response),
+            response
+        )
+        return ""
 
     def add_songs_to_playlist(self, playlist_id: str, song_ids: List[str]):
         response = self.client.add_playlist_items(playlistId=playlist_id, videoIds=song_ids)

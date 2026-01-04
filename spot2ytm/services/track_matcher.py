@@ -13,7 +13,9 @@ class TrackMatcher:
     def match(self, tracks: List[Track]) -> List[str]:
         video_ids = []
         for track in tracks:
-            video_id = self.ytmusic_client.search_song(track.title, track.album)
+            # video_id = self.ytmusic_client.search_song(track.title, track.album)
+            ###  search only with name for now
+            video_id = self.ytmusic_client.search_song(track.title)
             if video_id:
                 video_ids.append(video_id)
         return video_ids

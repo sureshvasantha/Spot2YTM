@@ -21,12 +21,14 @@ class YTMusicClient:
                 return playlist
         return None
 
-    def search_song(self, name: str, album: str, artist: str = ""):
+    def search_song(self, name: str, album: str = "", artist: str = ""):
+        """
+        artist is waste
+        """
         if "from" in name.lower():
             query = name  
         else: 
             query = f"{name} from {album}"
-
         results = self.client.search(query=query, filter="songs")
         return results[0]['videoId']
 
@@ -61,9 +63,9 @@ class YTMusicClient:
         return ""
 
     def add_songs_to_playlist(self, playlist_id: str, song_ids: List[str]):
-        response = self.client.add_playlist_items(playlistId=playlist_id, videoIds=song_ids)
+        response = self.client.add_playlist_items(playlistId=playlist_id, videoIds=song_ids, duplicates=True)
         if "succeed" in response['status'].lower(): # type: ignore
             return True
         else:
-            logger.warning("Error response from YTMusic while adding song to playlist.\n %s",  response['status']) # type: ignore
+            logger.warning("Error response from YTMusic while adding song to playlist.\n %s",  response) # type: ignore
             return False

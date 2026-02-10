@@ -21,7 +21,7 @@ class PlaylistMigrator:
         pl_name, pl_desc = self.spotify_client.get_playlist_name_desc(spotify_playlist_id)
         
         if ytmusic_playlist_name:
-           pl_name = ytmusic_playlist_name
+            pl_name = ytmusic_playlist_name
 
         yt_playlist_id = self.ytmusic_client.get_or_create_playlist(pl_name, pl_desc)
 
@@ -33,14 +33,20 @@ class PlaylistMigrator:
                 pl_name
             )
             return
+        
+        logger.info("YTMusic Playlist created. ID: %s, Name: %s", yt_playlist_id, pl_name)
 
         # Fetch songs(Track) from spotify playlist
         songs = self.fetcher.fetch(spotify_playlist_id)
 
+        logger.info("All song names are fetched from spotify playlist")
+
         # Search those songs in YTM, get ID
         song_ids = self.matcher.match(songs)
+        logger.info("Songs are searched in YTM and collected YTM song IDs")
 
         # Add those IDs to YTM Playlist
         self.ytmusic_client.add_songs_to_playlist(yt_playlist_id, song_ids)
+        logger.info("Songs are added to playlist")
 
         return yt_playlist_id

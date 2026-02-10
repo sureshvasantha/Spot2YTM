@@ -25,7 +25,9 @@ class YTMusicClient:
         """
         artist is waste
         """
-        if "from" in name.lower():
+        if not album:
+            query = name  
+        elif "from" in name.lower():
             query = name  
         else: 
             query = f"{name} from {album}"

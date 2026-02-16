@@ -14,15 +14,16 @@ Features:
 TODO:
 ---
 
-- [ ] Remove prints in `app.py` and log correctly. 
+- [ ] Get Spotify playlists of logged in User instead of passing IDs manually.
+- [ ] Develop CLI tool (args type and TUI style) 
+- [x] Remove prints in `app.py` and log correctly. 
 - [ ] Make use of Redis or ACID DB to persist songs IDs to resume addition of songs regardless of app restarts.
 - [ ] Handle Rate limiting for searching in YTM.
 - [ ] Apply Search Result limit for searching in YTM.
 - [ ] Log extensively
 - [ ] Handle Exceptions using Custom.
 - [ ] Develop proper custom auth for this tool - for Spotify (OAUTH) and YT browser based or Oauth -> end result `browser.json`.
-- [ ] Get Spotify playlists of logged in User instead of passing IDs manually.
-- [ ] Develop CLI tool (args type and TUI style) 
+
 
 
   > Ultimate Goal: 

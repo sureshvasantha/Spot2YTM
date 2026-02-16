@@ -1,6 +1,11 @@
+"""YouTube Music API sample implementation and testing.
+
+This module demonstrates various YouTube Music API operations including playlist
+creation, song searching, and track addition. Intended for development and testing purposes.
+"""
+
 from ytmusicapi import YTMusic
 import json
-from ytmusicapi import YTMusic
 from dotenv import load_dotenv
 from spot2ytm.clients.ytmusic_client import YTMusicClient
 from spot2ytm.config.settings import settings
@@ -8,7 +13,14 @@ from spot2ytm.config.settings import settings
 load_dotenv()
 
 
-def setup(authenticate=False):
+def setup(authenticate: bool = False) -> YTMusic:
+    """Initialize and return a YouTube Music client.
+    \n    Args:
+        authenticate: If True, authenticates using stored credentials.
+                     If False, returns an unauthenticated client.
+                     \n    Returns:
+        YTMusic: An initialized YTMusic client instance.
+    """
     if authenticate:
         ytmusic = YTMusic(str(settings.YTMUSIC_AUTH_FILE))
     else:
@@ -16,6 +28,9 @@ def setup(authenticate=False):
     return ytmusic
 
 def main():
+    """Main sample function demonstrating YouTube Music operations.
+    \n    Searches for a song and adds it to a playlist.
+    """
     ytmusic = setup(True)
     ytm_client = YTMusicClient(ytmusic)
 
